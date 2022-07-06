@@ -1,8 +1,8 @@
 import React from "react";
 import {Button} from "@mui/material";
 import {FULL_NODE, TESTNET_TOKENS} from "./MainRoute.constants";
-import {measure} from "./MainRoute.utils";
-const {newMnemonic, PrivacyVersion, Account, Wallet} = require("incognito-chain-web-js/build/web/wallet");
+import {createAndSendNativeToken, createAndSendPrivacyToken, measure} from "./MainRoute.utils";
+const {newMnemonic, PrivacyVersion, Account, Wallet, PRVIDSTR, ACCOUNT_CONSTANT} = require("incognito-chain-web-js/build/web/wallet");
 
 const MainRoute = React.memo(() => {
     const [status, setStatus] = React.useState<{
@@ -104,6 +104,53 @@ const MainRoute = React.memo(() => {
         //     console.log('IMPORT WALLET ERROR: ', error)
         // }
     }
+
+    const handleCreateAndSendTransaction = async () => {
+        const accountSender = await getAccount();
+        const sendTokenID = PRVIDSTR
+        const isPRV = sendTokenID === PRVIDSTR;
+        const receiver = "12sgLUVh3V5QBomfLP8DUgAya8JKpyhJqSdS6UzaUPiA4UnqU2JBXoHdVaQNLjbzqT7RGpzyTUKt3ErFFBLkWoqv7j1UjsL9oHp7zGsz5CuMXXApR3arEoD6rMoytfoqCke2sZARe5WUHdkW9ebN"
+        let payload: any = {
+            accountSender,
+            fee: 100,
+            info: "SEND",
+            txType: ACCOUNT_CONSTANT.TX_TYPE.SEND,
+            tokenID: sendTokenID,
+            version: PrivacyVersion.ver3,
+        };
+        if (isPRV) {
+            payload = {
+                ...payload,
+                prvPayments: [
+                    {
+                        PaymentAddress: receiver,
+                        Amount: 100,
+                    },
+                ],
+            };
+        } else {
+            // Handle send privacy token
+            payload = {
+                ...payload,
+                tokenID: sendTokenID,
+                tokenPayments: [
+                    {
+                        PaymentAddress: receiver,
+                        Amount: 100,
+                    },
+                ],
+            };
+        }
+        let tx;
+        // send PRV
+        if (isPRV) {
+            tx = await createAndSendNativeToken({...payload})
+        } else {
+            tx = await createAndSendPrivacyToken({...payload})
+        }
+        console.log("TRANSACTION: ", tx)
+    }
+
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
