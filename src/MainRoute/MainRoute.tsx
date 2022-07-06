@@ -110,18 +110,18 @@ const MainRoute = React.memo(() => {
             <Button variant="contained" onClick={handleScanCoins}>
                 TEST SCAN COINS
             </Button>
-            <Button variant="contained"  style={{ marginTop: 24 }} onClick={handleCreateNewWallet}>
-                TEST CREATE WALLET
-            </Button>
-            <Button variant="contained" style={{ marginTop: 24 }} onClick={handleCreateNewWallet}>
-                TEST IMPORT WALLET TODO
-            </Button>
-            <Button variant="contained"  style={{ marginTop: 24 }} onClick={handleLoadWallet}>
-                LOAD WALLET TODO
-            </Button>
-            <Button variant="contained" style={{ marginTop: 24 }}>
-                TEST CREATE ACCOUNT TODO
-            </Button>
+            {/*<Button variant="contained"  style={{ marginTop: 24 }} onClick={handleCreateNewWallet}>*/}
+            {/*    TEST CREATE WALLET*/}
+            {/*</Button>*/}
+            {/*<Button variant="contained" style={{ marginTop: 24 }} onClick={handleCreateNewWallet}>*/}
+            {/*    TEST IMPORT WALLET TODO*/}
+            {/*</Button>*/}
+            {/*<Button variant="contained"  style={{ marginTop: 24 }} onClick={handleLoadWallet}>*/}
+            {/*    LOAD WALLET TODO*/}
+            {/*</Button>*/}
+            {/*<Button variant="contained" style={{ marginTop: 24 }}>*/}
+            {/*    TEST CREATE ACCOUNT TODO*/}
+            {/*</Button>*/}
             <Button variant="contained" style={{ marginTop: 24 }} onClick={handleLoadBalance}>
                 TEST GET BALANCE
             </Button>
