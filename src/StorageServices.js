@@ -1,19 +1,18 @@
 // simulate react native's async-storage
 class StorageServices {
   constructor() {
-    this.storage = {};
   }
 
   async setItem(key, value) {
-    this.storage[key] = value;
+    return localStorage.setItem(key, value);
   }
 
   async getItem(key) {
-    return this.storage[key] || undefined;
+    return localStorage.getItem(key);
   }
 
   async removeItem(key) {
-    delete this.storage[key];
+    return localStorage.removeItem(key);
   }
 }
 
